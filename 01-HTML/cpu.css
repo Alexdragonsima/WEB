@@ -1,23 +1,26 @@
 ﻿body {
     /*background-color: #323232;*/
-/*    color: grey;*/
+    /*    color: grey;*/
     font-family: 'Roboto Condensed';
 }
 
 h1 {
     text-align: center;
-    color: white;
+    color: black;
 }
 
 h4 {
     text-align: right;
     font-size: 16pt;
-    color: whitesmoke;
+    color: grey;
 }
 
 p {
     text-align: justify;
     font-size: 14pt;
+    border: solid 1px;
+    margin: 22px;
+    padding: 11px 33px;
 }
 
 ol {
@@ -41,10 +44,66 @@ a {
     color: aliceblue;
 }
 
-    a:hover,a:hover:visited {
+    a:hover, a:hover:visited {
         color: blue;
     }
 
     a:visited {
         color: green;
     }
+
+table {
+    /*        border:solid 2px;*/
+    margin: 0 auto;
+    border-spacing: 0;
+}
+
+thead {
+    background-color: #6b5fb5;
+    border: solid 10px;
+    border-color: black;
+}
+
+th {
+    color: white;
+    border: solid 1px;
+    padding: 11px 33px;
+    border-top: solid 2px black;
+    border-bottom: solid 2px #aeaed3;
+}
+
+td {
+    border: solid 1px;
+    border: solid 1px #aeaed3;
+    text-align: center;
+}
+
+.row-header{
+/*    background-color: #6b5fb5;*/
+/*    color: white;*/
+    text-align: left;
+}
+
+td[colspan="3"] {
+    text-align: center;
+    color: white;
+    background-color: #6b5fb5;
+}
+
+.table-first-header {
+    border-left: solid 2px #aeaed3;
+}
+
+.table-last-header {
+    border-right: solid 2px #aeaed3;
+}
+
+div {
+    border: solid 1px;
+    /*        margin:22px 32px;*/
+    margin: 22px 33px 44px 55px;
+    /*      margin-left:32px;
+        margin-right:12px;
+        margin-top:22px;
+        margin-bottom:32px;*/
+}
