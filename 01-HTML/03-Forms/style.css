@@ -3,3 +3,26 @@ body {
     font-family: Roboto Condensed;
     background-image: linear-gradient(to right, wheat, lightblue);
 }
+textarea
+{
+    resize:none;
+    width:500px;
+    height:150px;
+}
+fieldset
+{
+    width:474px;
+}
+.EULA
+{
+    width: 500px;
+    height: 300px;
+    border:solid 1px;
+    overflow:scroll;
+    text-align:justify;
+    background-color:aqua;
+}
+div 
+{
+    margin:25px;
+}

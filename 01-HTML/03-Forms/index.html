@@ -18,14 +18,67 @@
             <div>
                 <label for="password">Пароль:</label>
                 <input type="password" id="password" name="password" size="32" placeholder="Пароль"
-                  pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[~!@#$%^&*\(\)\[\]\{\}_+=\-\/\\'&quot\;:,.\|?<>]).{8,}$"
-                       >
+                       pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[~!@#$%^&*\(\)\[\]\{\}_+=\-\/\\'&quot\;:,.\|?<>][^\s]).{8,}$">
             </div>
             <div>
                 <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email"/>
+                <input type="email" id="email" name="email" />
             </div>
-                <input type="submit" value="Отправить">
+            <div>
+                <label for="phone-number">Номер телефона</label>
+                <input type="tel" id="phone-number" name="phone-number"
+                       placeholder="+7(XXX) XXX-XX-XX"
+                       pattern="\+7[\(]9[0-9]{2}[\)]{0,1}\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" />
+            </div>
+            <div>
+                <label for="birth-date">День рождения: </label>
+                <input type="date" id="birth-date" name="birth-date" min="1950-01-01" max="2011-01-01" />
+            </div>
+            <div>
+                <label for="brief">Пару слов о себе:</label><br />
+                <textarea id="brief" name="brief" placeholder="russian"></textarea>
+            </div>
+            <div>
+                <img width="150" height="200"><br />
+                <label for="photo">Выберите фото</label><br />
+                <input type="file" id="photo" name="photo" />
+            </div>
+            <div>
+                <label for="color">
+                    Ваш любимый цвет
+                </label>
+                <input type="color" id="color" name="color" />
+            </div>
+            <div>
+                <fieldset>
+                    <legend>Какие языки вы знаете</legend>
+                    <input type="checkbox" id="Russian" checked><label for="Russian">Русский</label><br>
+                    <input type="checkbox" id="English"><label for="English">English</label><br />
+                    <input type="checkbox" id="Deutshe"><label for="Deutshe">Deutshe</label><br />
+                    <input type="checkbox" id="Espaniol"><label for="Espaniol">Espaniol</label><br />
+                    <input type="checkbox" id="Italiano"><label for="Italiano">Italiano</label><br />
+                </fieldset>
+            </div>
+            <div>
+                <fieldset>
+                    <legend>Выберите форму обучения</legend>
+                    <input type="radio" id="stacionar" name="learningForm" ><label for="stacionar">Стационар</label><br />
+                    <input type="radio" id="semistacionar" name="learningForm" ><label for="semistacionar">Полустационар</label><br />
+                    <input type="radio" id="yearstacionar" name="learningForm" ><label for="yearstacionar">Годичные курсы</label><br />
+                </fieldset>
+            </div>
+            <div>
+                <select>
+                    <option disabled selected>--- Выберите направление обучения</option>
+                    <option>РПО</option>
+                    <option>Сети</option>
+                    <option>Дизайн</option>
+                </select>
+            </div>
+            <div class="EULA">
+                Лицензионное соглашение Windows
+            </div>
+            <input type="submit" value="Отправить">
         </form>
     </main>
 </body>
