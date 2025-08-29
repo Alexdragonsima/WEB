@@ -84,10 +84,10 @@
     height: 321px;
     display: block;
 }
-#main-area
-{
-    display:flex;
-    justify-content:space-between;
+
+#main-area {
+    display: flex;
+    justify-content: space-between;
 }
 
 #bottom-border {
@@ -103,9 +103,97 @@
     /*background-color: darkblue;*/
     background-image: linear-gradient(to right,#0022BBFF, #0055FFFF,#0022BBFF);
 }
+
 #right-border {
     width: 5px;
     height: 321px;
     /*background-color: darkblue;*/
     background-image: linear-gradient(to right,#001177CC, #0055BBFF,#001177CC);
+}
+/*----------------------------------------------*/
+
+#work-area {
+    display: block;
+    width: 95%;
+}
+
+.menu-bar, .display, .buttons {
+    width: 100%;
+}
+
+.display {
+    display: flex;
+    justify-content: center;
+}
+
+.menu-bar {
+    display: flex;
+    justify-content: left;
+}
+
+    .menu-bar > button {
+        width: 50px;
+        height: 22px;
+        margin: 0;
+        background: rgb(236,233,216);
+        border: none;
+    }
+
+#text {
+    width: 93%;
+}
+
+input[type=text] {
+    text-align: right;
+}
+
+.buttons {
+    display: flex;
+    justify-content: left;
+}
+
+    .buttons button {
+        width: 50px;
+        height: 40px;
+        margin: 5px 10px;
+        /*border:solid 1px darkblue;*/
+        /*border-radius:5px;*/
+    }
+
+.memory-buttons {
+    /*border: solid 1px;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .memory-buttons > button {
+        color: red;
+    }
+
+    .memory-buttons > #square {
+        width: 32px;
+        height: 32px;
+        /*box-shadow: inset 2px 2px 0px 0px grey;*/
+        border: inset 2px;
+        margin: 7px 10px 7px;
+    }
+
+.main-block button {
+    margin: 5px;
+}
+
+.wide-buttons > button {
+    width: 85px;
+    color: red;
+}
+
+.digit-buttons {
+    display: grid;
+    grid-template-columns: 50px 50px 50px;
+    grid-template-rows: 40px 40px 40px 40px;
+    grid-gap:10px;
+}
+.digit-buttons button{
+    color:darkblue;
 }
