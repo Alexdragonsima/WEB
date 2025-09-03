@@ -77,3 +77,37 @@ input[type=checkbox] {
     width: 12px;
     height: 12px;
 }
+
+#display {
+    border: solid 1px;
+    font-size: 32px;
+    display: flex;
+    justify-content: space-around;
+    padding:10px;
+    margin:10px;
+}
+
+.time-block {
+    border: solid 3px;
+    border-radius: 10px;
+}
+
+.time-unit {
+    font-size: 48px;
+    color: rgb(200,0,0);
+    width: 148px;
+    height: 148px;
+    background-color: Highlight;
+}
+
+.time-marker {
+    border: solid 1px;
+    background-color: darkred;
+    color: aliceblue;
+}
+
+.time-unit, .time-marker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

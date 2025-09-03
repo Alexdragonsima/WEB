@@ -87,3 +87,121 @@ function addLeadingZero(number)
 {
 	return number < 10 ? "0" + number : number;
 } 
+
+document.getElementById("btn-start").onclick = function startCountdownTimer()
+{
+    let targetDate = document.getElementById("target-date");
+    let targetTime = document.getElementById("target-time");
+    let btnStart = document.getElementById("btn-start");
+    targetDate.disabled = targetTime.disabled = !targetDate.disabled;
+    if(btnStart.value === "Start")
+	{
+		btnStart.value = "Stop";
+		tickCountdown();
+	}
+    else
+    {
+        btnStart.value = "Start";
+    }
+}
+function tickCountdown()
+{
+    if(!document.getElementById("target-time").disabled) return;
+    let now = new Date();
+    console.log('now timezoneOffset:\t${now.getTimezoneOffset()}');
+    //Controls - это элементы интерфейса.
+    let targetDateControl = document.getElementById("target-date");
+    let targetTimeControl = document.getElementById("target-time");
+    let targetDate = targetDateControl.valueAsDate;
+    let targetTime = targetTimeControl.valueAsDate;
+
+    //Выравниваем часовой пояс:
+    targetDate.setHours(targetDate.getHours() + targetDate.getTimezoneOffset()/60);
+    targetTime.setHours(targetTime.getHours() + targetTime.getTimezoneOffset()/60);
+    
+    //Приводим дату в целевом времени к выбранной дате:
+    targetTime.setFullYear(targetDate.getFullYear());
+    targetTime.setMonth(targetDate.getMonth());
+    targetTime.setDate(targetDate.getDate());
+
+    //Определяем промежуток времени до указанной даты:
+    let duration = targetTime - now;    //Разность дат вычисляется в формате Timestamp
+    document.getElementById("duration").innerHTML = duration;
+    //Timestamp - это количество миллисекунд от 1 января 1970.
+    let timestamp = Math.trunc(duration/1000);
+    document.getElementById("timestamp").innerHTML = timestamp;
+
+    //Отображаем целевую дату/время и промежуток на странице:
+    document.getElementById("target-date-value").innerHTML = targetDate;
+    document.getElementById("target-time-value").innerHTML = targetTime;
+
+    console.log('targetTime timezoneOffset:\t${now.getTimezoneOffset()}`);
+    ////////////////////////////////////////////////////////////////////////////
+    //const SECONDS_IN_MINUTE = 60;
+    //const SECONDS_IN_HOUR = 3600;
+    //const SECONDS_IN_DAY = 86400;
+    //const SECONDS_IN_WEEK = SECONDS_IN_DAY*7;
+    //const DAYS_IN_MONTH = 365.25/12;
+    //const SECONDS_IN_MONTH = SECONDS_IN_DAY*DAYS_IN_MONTH;
+    //const SECONDS_IN_YEAR = SECONDS_IN_DAY*365 + SECONDS_IN_HOUR*6;
+
+    ////////////////////////////////////////////////////////////////////////////
+    //https://stackoverflow.com/questions/14/difference-between-math-floor-and-math-truncate
+    //let time_of_day = timestamp % SECONDS_IN_DAY;
+    //Убираем время дня из timestamp:
+    //let date = timestamp - time_of_day;//Math.trunc(timestamp/SECONDS_IN_DAY);//date = date * SECONDS_IN_DAY;
+
+    //let str_date = '';
+    //let years   = Math.trunc(date/SECONDS_IN_YEAR); str_date += `Years:${years},`;
+    //if(years != 0)
+    //{
+    //    date = date - years*SECONDS_IN_YEAR;
+    //    let years_unit = document.getElementById("years-unit");
+    //    if(years_unit == null)
+    //    {
+    //        let display = document.getElementById("display");
+    //        display.prepend(createTimeBlock("years", years));
+    //    }
+    //    else
+    //    {
+    //        years_unit.innerHTML = years;
+    //    }
+    //}
+    //else
+    //{
+    //    removeTimeBlock("years");
+    //}
+    //if(years>0) date = (date%(years*SECONDS_IN_YEAR));
+    //let months = Math.trunc(date/SECONDS_IN_MONTH);str_date += `Months:${months},`;
+    //date = date - months*SECONDS_IN_MONTH;
+    //if(months>0) date = (date%(months*SECONDS_IN_MONTH));
+    //let weeks   = Math.trunc(date/SECONDS_IN_WEEK); str_date += `Weeks:${weeks},`;
+    //date = date - weeks*SECONDS_IN_WEEK;
+    //if(weeks>0) date = (date%(weeks*SECONDS_IN_WEEK));
+    //let days    = Math.ceil(date/SECONDS_IN_DAY);  
+    //days = days - Math.trunc(years/4);
+    //str_date += 'Days:${days},';
+    ////////////////////////////////////////////////////////////////////////////////////
+    
+    //document.getElementById("date-reminded").innerHTML = str_date;
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    //let hours = Math.floor(time_of_day/SECONDS_IN_HOUR);
+    //if(hours > 0) time_of_day = (time_of_day%(hours*SECONDS_IN_HOUR));
+
+    //let minutes = Math.floor(time_of_day/SECONDS_IN_MINUTE);
+    //if(minutes > 0) time_of_day = (time_of_day%(minutes*SECONDS_IN_MINUTE));
+
+    //let seconds = time_of_day;
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    //document.getElementById("hours-unit").innerHTML = addLeadingZero(hours);
+    //document.getElementById("minutes-unit").innerHTML = addLeadingZero(minutes);
+    //document.getElementById("seconds-unit").innerHTML = addLeadingZero(seconds);
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    setTimeout(tickCountdown, 100);
+}
