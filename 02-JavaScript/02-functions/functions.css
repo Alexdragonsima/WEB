@@ -1,6 +1,5 @@
 ﻿
-body {
-    /*    background-color: blue;*/
+﻿body {
 }
 
 input, button {
@@ -8,7 +7,7 @@ input, button {
 }
 
 input {
-    width: 256px;
+    width: 320px;
 }
 
 #header {
@@ -26,8 +25,7 @@ input {
     width: 32px;
     height: 32px;
     margin: 24px;
-    transition: 3s;
-    background-size:contain;
+    background-size: 31px 31px; /*!!! ЭТО СВОЙСТВО НЕОБХОДИМО ДЛЯ ОТОБРАЖЕНИЯ ФОНОВОЙ КАРТИНКИ !!!*/
 }
 
 img[src='img/sun.png'] {
@@ -40,8 +38,10 @@ img[src='img/sun.png'] {
 }
 
     .light #switchBackground {
-        content: url('img/moon.png');
-        /*        background-image:url("img/moon.png");*/
+        width: 32px;
+        height: 32px;
+        /*content: url('img/moon.png');*/
+        background-image: url("img/moon.png"); /*ДЛЯ ТОГО ЧТОБЫ ЭТО СВОЙСТВО ЗАРАБОТАЛО, В #SWITCHBACKGROUND НУЖНО ДОБАВИТЬ СВОЙСТВО 'BACKGROUND-SIZE'*/
     }
 
 .dark {
@@ -50,7 +50,15 @@ img[src='img/sun.png'] {
 }
 
     .dark #switchBackground {
-        content: url('img/sun.png');
-        /*        background-image:url("img/sun.png");*/
+        width: 32px;
+        height: 32px;
+        /*content: url('img/sun.png');*/
+        background-image: url("img/sun.png");
         filter: brightness(0) invert(1);
     }
+
+#photo-container {
+    border: solid 1px;
+    width: 400px;
+    height: 300px;
+}
