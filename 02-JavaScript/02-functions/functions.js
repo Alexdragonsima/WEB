@@ -29,7 +29,7 @@ function SwitchBackground()
     let delay = Number(document.getElementById("delay").value);
     console.log(delay);
     document.body.style.transition = `background-color ${delay}s, color ${delay}s`;
-    document.getElementById('switchBackground').style.transition = `background-image ${delay}s`;
+    document.getElementById(`switchBackground`).style.transition = `background-image ${delay}s`;
     document.body.className = document.body.className === "light" ? "dark" : "light";
 }
 document.addEventListener("mousemove", function (event)
@@ -108,7 +108,7 @@ function tickCountdown()
 {
     if (!document.getElementById("target-time").disabled) return;
     let now = new Date();
-    console.log('now timezoneOffset:\t${now.getTimezoneOffset()}');
+    console.log(`now timezoneOffset:\t${now.getTimezoneOffset()}`);
     //Controls - это элементы интерфейса.
     let targetDateControl = document.getElementById("target-date");
     let targetTimeControl = document.getElementById("target-time");
@@ -135,63 +135,63 @@ function tickCountdown()
     document.getElementById("target-date-value").innerHTML = targetDate;
     document.getElementById("target-time-value").innerHTML = targetTime;
 
-    console.log('targetTime timezoneOffset:\t${now.getTimezoneOffset()}');
+    console.log(`targetTime timezoneOffset:\t${now.getTimezoneOffset()}`);
     ////////////////////////////////////////////////////////////////////////////
     const SECONDS_IN_MINUTE = 60;
     const SECONDS_IN_HOUR = 3600;
     const SECONDS_IN_DAY = 86400;
-    const SECONDS_IN_WEEK = SECONDS_IN_DAY*7;
-    const DAYS_IN_MONTH = 365.25/12;
-    const SECONDS_IN_MONTH = SECONDS_IN_DAY*DAYS_IN_MONTH;
-    const SECONDS_IN_YEAR = SECONDS_IN_DAY*365 + SECONDS_IN_HOUR*6;
+    const SECONDS_IN_WEEK = SECONDS_IN_DAY * 7;
+    const DAYS_IN_MONTH = 365.25 / 12;
+    const SECONDS_IN_MONTH = SECONDS_IN_DAY * DAYS_IN_MONTH;
+    const SECONDS_IN_YEAR = SECONDS_IN_DAY * 365 + SECONDS_IN_HOUR * 6;
 
     ////////////////////////////////////////////////////////////////////////////
     //https://stackoverflow.com/questions/14/difference-between-math-floor-and-math-truncate
     let time_of_day = timestamp % SECONDS_IN_DAY;
     //Убираем время дня из timestamp:
-    //let date = timestamp - time_of_day;//Math.trunc(timestamp/SECONDS_IN_DAY);//date = date * SECONDS_IN_DAY;
+    let date = timestamp - time_of_day;//Math.trunc(timestamp/SECONDS_IN_DAY);//date = date * SECONDS_IN_DAY;
 
-    //let str_date = '';
-    //let years   = Math.trunc(date/SECONDS_IN_YEAR); str_date += `Years:${years},`;
-    //if(years != 0)
-    //{
-    //    date = date - years*SECONDS_IN_YEAR;
-    //    let years_unit = document.getElementById("years-unit");
-    //    if(years_unit == null)
-    //    {
-    //        let display = document.getElementById("display");
-    //        display.prepend(createTimeBlock("years", years));
-    //    }
-    //    else
-    //    {
-    //        years_unit.innerHTML = years;
-    //    }
-    //}
-    //else
-    //{
-    //    removeTimeBlock("years");
-    //}
-    //if(years>0) date = (date%(years*SECONDS_IN_YEAR));
-    //let months = Math.trunc(date/SECONDS_IN_MONTH);str_date += `Months:${months},`;
-    //date = date - months*SECONDS_IN_MONTH;
-    //if(months>0) date = (date%(months*SECONDS_IN_MONTH));
-    //let weeks   = Math.trunc(date/SECONDS_IN_WEEK); str_date += `Weeks:${weeks},`;
-    //date = date - weeks*SECONDS_IN_WEEK;
-    //if(weeks>0) date = (date%(weeks*SECONDS_IN_WEEK));
-    //let days    = Math.ceil(date/SECONDS_IN_DAY);  
+    let str_date = '';
+    let years = Math.trunc(date / SECONDS_IN_YEAR); str_date += `Years:${years},`;
+    if (years != 0)
+    {
+        date = date - years * SECONDS_IN_YEAR;
+        let years_unit = document.getElementById("years-unit");
+        if (years_unit == null)
+        {
+            let display = document.getElementById("display");
+            display.prepend(createTimeBlock("years", years));
+        }
+        else
+        {
+            years_unit.innerHTML = years;
+        }
+    }
+    else
+    {
+        removeTimeBlock("years");
+    }
+    //if (years > 0) date = (date % (years * SECONDS_IN_YEAR));
+    let months = Math.trunc(date / SECONDS_IN_MONTH); str_date += `Months:${months},`;
+    date = date - months * SECONDS_IN_MONTH;
+    //if (months > 0) date = (date % (months * SECONDS_IN_MONTH));
+    let weeks = Math.trunc(date / SECONDS_IN_WEEK); str_date += `Weeks:${weeks},`;
+    date = date - weeks * SECONDS_IN_WEEK;
+    if (weeks > 0) date = (date % (weeks * SECONDS_IN_WEEK));
+    let days = Math.ceil(date / SECONDS_IN_DAY);
     //days = days - Math.trunc(years/4);
-    //str_date += 'Days:${days},';
+    str_date += `Days:${days},`;
     ////////////////////////////////////////////////////////////////////////////////////
 
-    //document.getElementById("date-reminded").innerHTML = str_date;
+    document.getElementById("date-reminded").innerHTML = str_date;
 
     ////////////////////////////////////////////////////////////////////////////
 
-    let hours = Math.floor(time_of_day/SECONDS_IN_HOUR);
-    if(hours > 0) time_of_day = (time_of_day%(hours*SECONDS_IN_HOUR));
+    let hours = Math.floor(time_of_day / SECONDS_IN_HOUR);
+    if (hours > 0) time_of_day = (time_of_day % (hours * SECONDS_IN_HOUR));
 
-    let minutes = Math.floor(time_of_day/SECONDS_IN_MINUTE);
-    if(minutes > 0) time_of_day = (time_of_day%(minutes*SECONDS_IN_MINUTE));
+    let minutes = Math.floor(time_of_day / SECONDS_IN_MINUTE);
+    if (minutes > 0) time_of_day = (time_of_day % (minutes * SECONDS_IN_MINUTE));
 
     let seconds = time_of_day;
 
@@ -204,4 +204,34 @@ function tickCountdown()
     ////////////////////////////////////////////////////////////////////////////
 
     setTimeout(tickCountdown, 100);
+}
+function createTimeBlock(name, value)
+{
+    let time_block = document.createElement("div");
+    time_block.className = "time-block";
+
+    let unit = document.createElement("div");
+    unit.id = `${name}-unit`;
+    unit.className = "time-unit";
+    unit.innerHTML = addLeadingZero(value);
+
+    let marker = document.createElement("div");
+    marker.id = `${name}-marker`;
+    marker.className = "time-marker";
+    marker.innerHTML = name;
+
+    time_block.append(unit);
+    time_block.append(marker);
+
+    return time_block;
+}
+function removeTimeBlock(name)
+{
+    let unit = document.getElementById(`${name}-unit`);
+    if (unit != null)
+    {
+        let block = unit.parentElement;
+        let block_parent = block.parentElement;
+        block_parent.removeChild(block);
+    }
 }
