@@ -1,0 +1,52 @@
+﻿@page "/power"
+@rendermode InteractiveServer
+
+<h2>Power</h2>
+
+<h3>Возведение числа в степень</h3>
+
+<div>
+	<label>Основание: </label>
+	<input type="number" @bind="Base" @bind:event="onimput"/>
+</div>
+
+<div>
+	<label>Показатель степени: </label>
+	<input type="number" @bind="Exponent" @bind:event="oninput"  />
+</div>
+
+<div>
+	<p>Результат: @Result</p>
+</div>
+
+@code {
+	private double _base = 2;
+	private int _exponent = 3;
+
+	private double Base
+	{
+		get => _base;
+		set
+		{
+			_base = value;
+			CalculateResult();
+		}
+	}
+
+	private int Exponent
+	{
+		get => _exponent;
+		set
+		{
+			_exponent = value;
+			CalculateResult();
+		}
+	}
+
+	public double Result { get; private set; } = 8;
+
+	private void CalculateResult()
+	{
+		Result = Math.Pow(Base, Exponent);
+	}
+}

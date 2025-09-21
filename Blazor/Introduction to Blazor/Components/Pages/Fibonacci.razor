@@ -1,0 +1,59 @@
+﻿@page "/fibonacci"
+@rendermode InteractiveServer
+@using System.Numerics
+
+<h2>Fibonacci</h2>
+
+<h2>Вычисление ряда Фибоначи</h2>
+
+<div class="form-group">
+	<label>Введем количество чисел: </label>
+	<input type="number" class="form-control" @bind="Count" @bind:event="oninput" min="1" max="100"/>
+</div>
+
+@if(fibonacciNumbers.Any())
+{
+	<div class="mt-3">
+		<h4>Рузултат:</h4>
+		<p>@string.Join(", ", fibonacciNumbers)</p>
+	</div>
+}
+
+@code {
+	private int count = 10;
+	private List<BigInteger> fibonacciNumbers = new List<BigInteger>();
+
+	public int Count
+	{
+		get => count;
+		set
+		{
+			count = value;
+			CalculateFibonacci();
+		}
+	}
+
+	protected override void OnInitialized()
+	{
+		CalculateFibonacci();
+	}
+
+	private void CalculateFibonacci()
+	{
+		fibonacciNumbers.Clear();
+
+		if (count <= 0)
+			return;
+
+		if (count >= 1)
+			fibonacciNumbers.Add(0);
+		if (count >= 2)
+			fibonacciNumbers.Add(1);
+
+		for(int i=2;i<count;i++)
+		{
+			BigInteger next = fibonacciNumbers[i - 1] + fibonacciNumbers[i - 2];
+			fibonacciNumbers.Add(next);
+		}
+	}
+}
