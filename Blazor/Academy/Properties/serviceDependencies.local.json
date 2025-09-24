@@ -1,14 +1,11 @@
 {
   "dependencies": {
-    "mssql1": {
-      "type": "mssql.local",
-      "connectionId": "ConnectionStrings:MoviesContext"
-    },
     "secrets1": {
       "type": "secrets.user"
     },
-    "mssql2": {
+    "mssql1": {
       "secretStore": "LocalSecretsFile",
+      "resourceId": null,
       "type": "mssql.onprem",
       "connectionId": "ConnectionStrings:DatabaseConnection"
     }
