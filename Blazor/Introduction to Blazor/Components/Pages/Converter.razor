@@ -1,0 +1,106 @@
+﻿@page "/converter"
+
+<h3>Конвертер систем исчисления</h3>
+
+<div class="converter-container">
+	<div class="mode-selector">
+		<select @bind="selectedMode" class="form-select">
+			<option value="Dec2Bin">Десятичная -> Двоичная</option>
+			<option value="Dec2Hex">Десятичная -> Шестнадцатиричная</option>
+			<option value="Bin2Dec">Двоичная -> Десятичная</option>
+			<option value="Hex2Dec">Шестнадцатиричная -> Десятичная</option>
+		</select>
+	</div>
+
+	<div class="input-section">
+		<input @bind="inputValue"
+				@bind:event="oninput"
+			   placeholder="@GetPlaceholder()"
+			   class="form-control" />
+		<button @onclick="ConvertValue" class="btn btn-primary">Конвертировать</button>
+	</div>
+
+	@if (!string.IsNullOrEmpty(result))
+	{
+		<div class="result-section">
+			<h5>Результат:</h5>
+			<p class="result">@result</p>
+		</div>
+	}
+	@if (!string.IsNullOrEmpty(errorMessage))
+	{
+		<div class="alert alert-danger">@errorMessage</div>
+	}
+</div>
+
+@code {
+	private string selectedMode = "Dec2Bin";
+	private string inputValue = "";
+	private string result = "";
+	private string errorMessage = "";
+	
+	private string GetPlaceholder()
+	{
+		return selectedMode switch
+		{
+			"Dec2Bin" or "Dec2Hex" => "Введите десятичное число",
+			"Bin2Dec" => "Введите двоичное число (только 0 и 1)",
+			"Hex2Dec" => "Введите шестнадцатиричное число (0-9, A-F)",
+			_ => "Введите число"
+		};
+	}
+	private void ConvertValue()
+	{
+		errorMessage = "Test";
+		result = "";
+
+		// try
+		// {
+		// 	result = selectedMode switch
+		// 	{
+		// 		"Dec2Bin" => DecimalToBinary(),
+		// 		"Dec2Hex" => DecimalToHexadecimal(),
+		// 		"Bin2Dec" => BinaryToDecimal(),
+		// 		"Hex2Dec" => HexadecimalToDecimal(),
+		// 		_ => "Неизвестный режим"
+		// 	};
+		// }
+		// catch (Exception ex)
+		// {
+		// 	errorMessage = $"Ошибка: {ex.Message}";
+		// }
+	}
+
+	private string DecimalToBinary()
+	{
+		if (int.TryParse(inputValue, out int number))
+		{
+			return Convert.ToString(number, 2);
+		}
+		throw new ArgumentException("Введите коректное десятичное число");
+	}
+	private string DecimalToHexadecimal()
+	{
+		if (int.TryParse(inputValue, out int number))
+		{
+			return Convert.ToString(number, 16).ToUpper();
+		}
+		throw new ArgumentException("Введите коректное десятичное число");
+	}
+	private string BinaryToDecimal()
+	{
+		if (inputValue.All(c => c == '0' || c == '1'))
+		{
+			return Convert.ToInt32(inputValue, 2).ToString();
+		}
+		throw new ArgumentException("Введите коректное двоичное число");
+	}
+	private string HexadecimalToDecimal()
+	{
+		if (System.Text.RegularExpressions.Regex.IsMatch(inputValue, @"^[0-9A-Fa-f]+$"))
+		{
+			return Convert.ToInt32(inputValue, 16).ToString();
+		}
+		throw new ArgumentException("Введите коректное шестнадцатиричное число");
+	}
+}
