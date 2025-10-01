@@ -7,7 +7,8 @@ namespace BlazorAcademy.Models
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public short teacher_id { get; set; }
+		[Column()]
+		public int teacher_id { get; set; }
 		//[Required]
 		//public string last_name { get; set; }
 		//[Required]

@@ -1,17 +1,16 @@
-﻿@page "/teachers/edit"
+﻿@page "/students/edit"
 @using Microsoft.EntityFrameworkCore
 @using BlazorAcademy.Models
 @inject IDbContextFactory<BlazorAcademy.Data.BlazorAcademyContext> DbFactory
 @inject NavigationManager NavigationManager
-@rendermode InteractiveServer
 
 <PageTitle>Edit</PageTitle>
 
 <h1>Edit</h1>
 
-<h2>Teacher</h2>
+<h2>Student</h2>
 <hr />
-@if (Teacher is null)
+@if (Student is null)
 {
     <p><em>Loading...</em></p>
 }
@@ -19,34 +18,34 @@ else
 {
     <div class="row">
         <div class="col-md-4">
-            <EditForm method="post" Model="Teacher" OnValidSubmit="UpdateTeacher" FormName="edit" Enhance>
+            <EditForm method="post" Model="Student" OnValidSubmit="UpdateStudent" FormName="edit" Enhance>
                 <DataAnnotationsValidator />
                 <ValidationSummary role="alert"/>
-                <input type="hidden" name="Teacher.teacher_id" value="@Teacher.teacher_id" />
+                <input type="hidden" name="Student.student_id" value="@Student.student_id" />
                 <div class="mb-3">
-                    <label for="work_since" class="form-label">work_since:</label>
-                    <InputDate id="work_since" @bind-Value="Teacher.work_since" class="form-control" aria-required="true"/>
-                    <ValidationMessage For="() => Teacher.work_since" class="text-danger" />
+                    <label for="group" class="form-label">group:</label>
+                    <InputNumber id="group" @bind-Value="Student.group" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Student.group" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="last_name" class="form-label">last_name:</label>
-                    <InputText id="last_name" @bind-Value="Teacher.last_name" class="form-control" aria-required="true"/>
-                    <ValidationMessage For="() => Teacher.last_name" class="text-danger" />
+                    <InputText id="last_name" @bind-Value="Student.last_name" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Student.last_name" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="first_name" class="form-label">first_name:</label>
-                    <InputText id="first_name" @bind-Value="Teacher.first_name" class="form-control" aria-required="true"/>
-                    <ValidationMessage For="() => Teacher.first_name" class="text-danger" />
+                    <InputText id="first_name" @bind-Value="Student.first_name" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Student.first_name" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="middle_name" class="form-label">middle_name:</label>
-                    <InputText id="middle_name" @bind-Value="Teacher.middle_name" class="form-control" aria-required="true"/>
-                    <ValidationMessage For="() => Teacher.middle_name" class="text-danger" />
+                    <InputText id="middle_name" @bind-Value="Student.middle_name" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Student.middle_name" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="birth_date" class="form-label">birth_date:</label>
-                    <InputDate id="birth_date" @bind-Value="Teacher.birth_date" class="form-control" aria-required="true"/>
-                    <ValidationMessage For="() => Teacher.birth_date" class="text-danger" />
+                    <InputDate id="birth_date" @bind-Value="Student.birth_date" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Student.birth_date" class="text-danger" />
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>
@@ -55,22 +54,22 @@ else
 }
 
 <div>
-    <a href="/teachers">Back to List</a>
+    <a href="/students">Back to List</a>
 </div>
 
 @code {
     [SupplyParameterFromQuery]
-    private int teacher_id { get; set; }
+    private int student_id { get; set; }
 
     [SupplyParameterFromForm]
-    private Teacher? Teacher { get; set; }
+    private Student? Student { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        Teacher ??= await context.Teachers.FirstOrDefaultAsync(m => m.teacher_id == teacher_id);
+        Student ??= await context.Students.FirstOrDefaultAsync(m => m.student_id == student_id);
 
-        if (Teacher is null)
+        if (Student is null)
         {
             NavigationManager.NavigateTo("notfound");
         }
@@ -78,10 +77,10 @@ else
 
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
-    private async Task UpdateTeacher()
+    private async Task UpdateStudent()
     {
         using var context = DbFactory.CreateDbContext();
-        context.Attach(Teacher!).State = EntityState.Modified;
+        context.Attach(Student!).State = EntityState.Modified;
 
         try
         {
@@ -89,7 +88,7 @@ else
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!TeacherExists(Teacher!.teacher_id))
+            if (!StudentExists(Student!.student_id))
             {
                 NavigationManager.NavigateTo("notfound");
             }
@@ -99,12 +98,12 @@ else
             }
         }
 
-        NavigationManager.NavigateTo("/teachers");
+        NavigationManager.NavigateTo("/students");
     }
 
-    private bool TeacherExists(int teacher_id)
+    private bool StudentExists(int student_id)
     {
         using var context = DbFactory.CreateDbContext();
-        return context.Teachers.Any(e => e.teacher_id == teacher_id);
+        return context.Students.Any(e => e.student_id == student_id);
     }
 }

@@ -1,0 +1,40 @@
+﻿@page "/students"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using BlazorAcademy.Models
+@using BlazorAcademy.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<BlazorAcademy.Data.BlazorAcademyContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="students/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Students">
+    <PropertyColumn Property="student => student.group" />
+    <PropertyColumn Property="student => student.last_name" />
+    <PropertyColumn Property="student => student.first_name" />
+    <PropertyColumn Property="student => student.middle_name" />
+    <PropertyColumn Property="student => student.birth_date" />
+
+    <TemplateColumn Context="student">
+        <a href="@($"students/edit?student_id={student.student_id}")">Edit</a> |
+        <a href="@($"students/details?student_id={student.student_id}")">Details</a> |
+        <a href="@($"students/delete?student_id={student.student_id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private BlazorAcademyContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
