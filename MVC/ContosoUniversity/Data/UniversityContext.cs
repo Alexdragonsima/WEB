@@ -1,13 +1,12 @@
-﻿//using System.ComponentModel.DataAnnotations;
-//using System.ComponentModel.DataAnnotations.Schema;
-using ContosoUniversity.Models;
+﻿using ContosoUniversity.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContosoUniversity.Data
 {
-	public class UniversityContext:DbContext
+	public class UniversityContext : DbContext
 	{
-		public UniversityContext(DbContextOptions<UniversityContext> options):base(options) { }
+		public UniversityContext(DbContextOptions<UniversityContext> options) : base(options) { }
+
 		public DbSet<Student> Students { get; set; }
 		public DbSet<Enrollment> Enrollments { get; set; }
 		public DbSet<Course> Courses { get; set; }
