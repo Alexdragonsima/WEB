@@ -25,7 +25,7 @@ namespace ContosoUniversity.Models
 		public DateTime EnrollmentDate { get; set; }    //Дата поступления
 
 
-		[DisplayName("Student")]
+		[DisplayName("Студент")]
 		public string FullName { get => $"{LastName}{FirstName}"; }
 
 		//Navigation property:
